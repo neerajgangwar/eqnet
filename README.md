@@ -30,3 +30,12 @@ Note that for running all Python code, you need to add all the repository packag
 Generating Synthetic Data
 -----
 If you wish to generate synthetic (expression) data, look a the code in the `data.synthetic` package [here](https://github.com/mast-group/eqnet/tree/master/data/synthetic).
+
+Requirements
+-----
+With Python 3.5.6, the following versions were required to make it work:
+* Theano 1.0.5
+* SciPy 1.1.0
+* pygpu 0.7.0
+* NumPy 1.18.5
+* mako 1.0.7
