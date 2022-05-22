@@ -1,7 +1,9 @@
 from collections import defaultdict, OrderedDict
 
+import json
 import numpy as np
 from scipy.spatial.distance import cdist, squareform, pdist
+from tqdm import tqdm
 
 from data.dataimport import import_data
 from encoders.baseencoder import AbstractEncoder
@@ -25,7 +27,7 @@ class SemanticEquivalentDistanceEvaluation:
         encodings = []
         equivalent_to = []
         equivalence_sets = []
-        for name, code in data.items():
+        for name, code in tqdm(data.items()):
             idx = len(encodings)
             enc = self.__encoder.get_encoding(code['original'])
             assert not np.isnan(np.sum(enc))
@@ -135,15 +137,24 @@ class SemanticEquivalentDistanceEvaluation:
 if __name__ == "__main__":
     import sys
 
-    if 6 > len(sys.argv) < 4:
-        print("Usage <encoderPkl> <evaluationFilename> <allFilename> [considerOnlyFirstKcomponents]")
+    if 7 > len(sys.argv) < 5:
+        print("Usage <encoderPkl> <evaluationFilename> <allFilename> <outfilename> [considerOnlyFirstKcomponents]")
         sys.exit(-1)
 
     encoder = EquationEncoderWrapper(sys.argv[1])
     evaluator = SemanticEquivalentDistanceEvaluation(encoder_filename=None, encoder=encoder)
-    if len(sys.argv) == 5:
-        n_components = int(sys.argv[4])
-        nn_stats = evaluator.evaluate_with_test(sys.argv[3], sys.argv[2], consider_only_first_n_components=n_components)
+    if len(sys.argv) == 6:
+        n_components = int(sys.argv[6])
+        nn_stats = evaluator.evaluate(sys.argv[2], consider_only_first_n_components=n_components, num_nns=5)
     else:
-        nn_stats = evaluator.evaluate_with_test(sys.argv[3], sys.argv[2])
+        nn_stats = evaluator.evaluate(sys.argv[2], num_nns=5)
     print("Avg Semantically Equivalent NNs: %s" % nn_stats)
+
+    with open(sys.argv[4], "w") as file:
+        outdict = {
+            "score": np.mean(nn_stats),
+            "nn_stats": nn_stats.tolist(),
+            "file": sys.argv[2],
+        }
+        json.dump(outdict, file, indent=4)
+
