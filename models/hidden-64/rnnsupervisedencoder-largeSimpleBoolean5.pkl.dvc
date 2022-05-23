@@ -1,0 +1,4 @@
+outs:
+- md5: 91647ae038f76d6a903ce8ace7f3a529
+  size: 2104791
+  path: rnnsupervisedencoder-largeSimpleBoolean5.pkl

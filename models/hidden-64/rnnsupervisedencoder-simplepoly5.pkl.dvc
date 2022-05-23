@@ -1,0 +1,4 @@
+outs:
+- md5: 6ea0613e8b18240f291903cab0208e8f
+  size: 764864
+  path: rnnsupervisedencoder-simplepoly5.pkl

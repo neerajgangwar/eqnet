@@ -1,0 +1,4 @@
+outs:
+- md5: 7fe7a997e668cc4d17fe18bf51cd26e3
+  size: 890588
+  path: rnnsupervisedencoder-simpleBoolean8.pkl

@@ -1,0 +1,4 @@
+outs:
+- md5: 8e9b3e77e746c94c612b134c64393087
+  size: 19950
+  path: historic-datarnnsupervisedencoder-simplepoly8.pkl

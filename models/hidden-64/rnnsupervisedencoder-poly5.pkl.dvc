@@ -1,0 +1,4 @@
+outs:
+- md5: a2b43ab88bf40095813f9f24842d55ae
+  size: 907464
+  path: rnnsupervisedencoder-poly5.pkl

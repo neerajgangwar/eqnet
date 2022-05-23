@@ -1,0 +1,4 @@
+outs:
+- md5: 4395281deb273e5aa67f727bbfda7cef
+  size: 688888
+  path: rnnsupervisedencoder-oneVarPoly10.pkl
