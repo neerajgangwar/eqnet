@@ -39,3 +39,4 @@ With Python 3.5.6, the following versions were required to make it work:
 * pygpu 0.7.0
 * NumPy 1.18.5
 * mako 1.0.7
+* [Experimenter](https://github.com/mallamanis/experimenter)
