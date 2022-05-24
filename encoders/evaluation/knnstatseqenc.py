@@ -87,7 +87,7 @@ class SemanticEquivalentDistanceEvaluation:
         encodings = []
         equivalence_classes = defaultdict(set)  # eq_class->set(ids)
         test_samples_idx_map = OrderedDict()  # id-> eq_class
-        for eq_class, code in data.items():
+        for eq_class, code in tqdm(data.items(), desc="Embedding"):
             encoding = self.__encoder.get_encoding(code['original'])
             assert not np.isnan(np.sum(encoding))
             encodings.append(encoding)
