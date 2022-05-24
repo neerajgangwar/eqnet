@@ -145,9 +145,9 @@ if __name__ == "__main__":
     evaluator = SemanticEquivalentDistanceEvaluation(encoder_filename=None, encoder=encoder)
     if len(sys.argv) == 6:
         n_components = int(sys.argv[6])
-        nn_stats = evaluator.evaluate(sys.argv[2], consider_only_first_n_components=n_components, num_nns=5)
+        nn_stats = evaluator.evaluate_with_test(data_filename=sys.argv[3], test_filename=sys.argv[2], consider_only_first_n_components=n_components)
     else:
-        nn_stats = evaluator.evaluate(sys.argv[2], num_nns=5)
+        nn_stats = evaluator.evaluate_with_test(data_filename=sys.argv[3], test_filename=sys.argv[2])
     print("Avg Semantically Equivalent NNs: %s" % nn_stats)
 
     with open(sys.argv[4], "w") as file:
