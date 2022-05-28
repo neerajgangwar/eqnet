@@ -145,16 +145,21 @@ if __name__ == "__main__":
     evaluator = SemanticEquivalentDistanceEvaluation(encoder_filename=None, encoder=encoder)
     if len(sys.argv) == 6:
         n_components = int(sys.argv[6])
-        nn_stats = evaluator.evaluate_with_test(data_filename=sys.argv[3], test_filename=sys.argv[2], consider_only_first_n_components=n_components)
+        nn_stats = evaluator.evaluate_with_test(data_filename=sys.argv[3], test_filename=sys.argv[2], consider_only_first_n_components=n_components, num_nns=15)
     else:
-        nn_stats = evaluator.evaluate_with_test(data_filename=sys.argv[3], test_filename=sys.argv[2])
+        nn_stats = evaluator.evaluate_with_test(data_filename=sys.argv[3], test_filename=sys.argv[2], num_nns=15)
     print("Avg Semantically Equivalent NNs: %s" % nn_stats)
 
+    assert len(nn_stats) == 15
     with open(sys.argv[4], "w") as file:
         outdict = {
-            "score": np.mean(nn_stats),
+            "score_5": np.mean(nn_stats[:5]),
+            "score_10": np.mean(nn_stats[:10]),
+            "score_15": np.mean(nn_stats[:15]),
             "nn_stats": nn_stats.tolist(),
-            "file": sys.argv[2],
+            "test_file": sys.argv[2],
+            "data_file": sys.argv[3],
+            "model": sys.argv[1],
         }
         json.dump(outdict, file, indent=4)
 
