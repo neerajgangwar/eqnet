@@ -1,0 +1,4 @@
+outs:
+- md5: c0216b791f408d7eb6e7380ada3fa4ac
+  size: 29102
+  path: historic-datarnnsupervisedencoder-oneVarPoly13.pkl

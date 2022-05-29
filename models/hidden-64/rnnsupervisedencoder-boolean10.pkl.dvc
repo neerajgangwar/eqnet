@@ -1,0 +1,4 @@
+outs:
+- md5: 1fb7d5b7e42eabc2be9f7dedffe7ebbc
+  size: 1145810
+  path: rnnsupervisedencoder-boolean10.pkl

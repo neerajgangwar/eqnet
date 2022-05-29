@@ -1,0 +1,4 @@
+outs:
+- md5: 7799359f1588a5bdc1206d89afda3ec2
+  size: 65710
+  path: historic-datarnnsupervisedencoder-boolean10.pkl
