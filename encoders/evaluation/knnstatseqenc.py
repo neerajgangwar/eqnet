@@ -138,12 +138,12 @@ if __name__ == "__main__":
     import sys
 
     if 7 > len(sys.argv) < 5:
-        print("Usage <encoderPkl> <evaluationFilename> <allFilename> <outfilename> [considerOnlyFirstKcomponents]")
+        print("Usage <encoderPkl> <evaluationFilename> <allFilename> <outfilename> <mode> [considerOnlyFirstKcomponents]")
         sys.exit(-1)
 
-    encoder = EquationEncoderWrapper(sys.argv[1])
+    encoder = EquationEncoderWrapper(modelpath=sys.argv[1], mode=sys.argv[5])
     evaluator = SemanticEquivalentDistanceEvaluation(encoder_filename=None, encoder=encoder)
-    if len(sys.argv) == 6:
+    if len(sys.argv) == 7:
         n_components = int(sys.argv[6])
         nn_stats = evaluator.evaluate_with_test(data_filename=sys.argv[3], test_filename=sys.argv[2], consider_only_first_n_components=n_components, num_nns=15)
     else:

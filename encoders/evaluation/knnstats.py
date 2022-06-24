@@ -1,5 +1,6 @@
 from collections import defaultdict, OrderedDict
 
+import json
 import numpy as np
 from scipy.spatial.distance import cdist, squareform, pdist
 
@@ -134,14 +135,28 @@ class SemanticEquivalentDistanceEvaluation:
 if __name__ == "__main__":
     import sys
 
-    if 6 > len(sys.argv) < 4:
-        print("Usage <encoderPkl> <evaluationFilename> <allFilename> [considerOnlyFirstKcomponents]")
+    if 7 > len(sys.argv) < 5:
+        print("Usage <encoderPkl> <evaluationFilename> <allFilename> <outfile> [considerOnlyFirstKcomponents]")
         sys.exit(-1)
 
     evaluator = SemanticEquivalentDistanceEvaluation(sys.argv[1])
-    if len(sys.argv) == 5:
-        n_components = int(sys.argv[4])
+    if len(sys.argv) == 6:
+        n_components = int(sys.argv[5])
         nn_stats = evaluator.evaluate_with_test(sys.argv[3], sys.argv[2], consider_only_first_n_components=n_components)
     else:
         nn_stats = evaluator.evaluate_with_test(sys.argv[3], sys.argv[2])
     print("Avg Semantically Equivalent NNs: %s" % nn_stats)
+
+    assert len(nn_stats) == 15
+    with open(sys.argv[4], "w") as file:
+        outdict = {
+            "score_5": np.mean(nn_stats[:5]),
+            "score_10": np.mean(nn_stats[:10]),
+            "score_15": np.mean(nn_stats[:15]),
+            "nn_stats": nn_stats.tolist(),
+            "test_file": sys.argv[2],
+            "data_file": sys.argv[3],
+            "model": sys.argv[1],
+        }
+        json.dump(outdict, file, indent=4)
+
