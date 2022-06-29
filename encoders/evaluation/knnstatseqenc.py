@@ -153,9 +153,9 @@ if __name__ == "__main__":
     assert len(nn_stats) == 15
     with open(sys.argv[4], "w") as file:
         outdict = {
-            "score_5": np.mean(nn_stats[:5]),
-            "score_10": np.mean(nn_stats[:10]),
-            "score_15": np.mean(nn_stats[:15]),
+            "score_5": nn_stats[4],
+            "score_10": nn_stats[9],
+            "score_15": nn_stats[14],
             "nn_stats": nn_stats.tolist(),
             "test_file": sys.argv[2],
             "data_file": sys.argv[3],
